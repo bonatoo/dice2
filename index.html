@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Example Page</title>
+    <title>Lottery</title>
+    <style>
+        .matching-number {
+            color: red;
+        }
+    </style>
 </head>
 <body>
-
-<h1>Hello World</h1>
-
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+    <form method="post">
+        <label for="numbers">Enter your two chosen numbers, separated by a space:</label><br>
+        <input type="text" id="numbers" name="numbers"><br>
+        <input type="submit" value="Submit">
+    </form> 
+    {% if message %}
+        <p>{{ message }}</p>
+        <p>{{ seed_value }}</p>
+        <p>{{ hash_value }}</p>
+        <p>The winning numbers were:</p>
+        <ul>
+            {% for num in winning_numbers %}
+                <li {% if num in user_numbers %}class="matching-number"{% endif %}>{{ num }}</li>
+            {% endfor %}
+        </ul>
+        <p>Your numbers:</p>
+        <ul>
+            {% for num in user_numbers %}
+                <li {% if num in winning_numbers %}class="matching-number"{% endif %}>{{ num }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </body>
 </html>
