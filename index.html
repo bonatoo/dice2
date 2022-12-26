@@ -57,7 +57,7 @@
       const randomNumber = array[0] % 6 + 1;
 
       // Update the dice image and statistics table
-      dice.src = "dice" + randomNumber + ".png";
+      dice.src = "dice" + randomNumber + ".png" + diceRollText;
       document.getElementById("rolls" + randomNumber).innerHTML++;
 
       // Add text that displays the number rolled next to the dice image
