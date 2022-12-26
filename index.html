@@ -51,14 +51,18 @@
       resetButton.addEventListener("click", resetStats);
 
       function rollDice() {
-        // Generate a random number using the crypto object
-        const array = new Uint32Array(1);
-        window.crypto.getRandomValues(array);
-        const randomNumber = array[0] % 6 + 1;
+      // Generate a random number using the crypto object
+      const array = new Uint32Array(1);
+      window.crypto.getRandomValues(array);
+      const randomNumber = array[0] % 6 + 1;
 
-        // Update the dice image and statistics table
-        dice.src = "dice" + randomNumber + ".png";
-        document.getElementById("rolls" + randomNumber).innerHTML++;
+      // Update the dice image and statistics table
+      dice.src = "dice" + randomNumber + ".png";
+      document.getElementById("rolls" + randomNumber).innerHTML++;
+
+      // Add text that displays the number rolled next to the dice image
+      const diceRollText = document.createTextNode("Dice rolled " + randomNumber);
+      dice.parentNode.insertBefore(diceRollText, dice.nextSibling);
       }
 
       function resetStats() {
