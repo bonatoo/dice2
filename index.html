@@ -1,0 +1,115 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Direct Upload Demo | Cloudflare Pages</title>
+    <link href="style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <h3>Example project</h3>
+        <h1>Welcome to Cloudflare Pages</h1>
+        <p>
+          Upload your prebuilt assets directly to Pages and deploy <br />
+          your project to the Cloudflare edge within seconds.
+        </p>
+        <p>Create new deployments using:</p>
+        <section class="options">
+          <img src="assets/terminal.svg" />
+          <a
+            href="https://dash.cloudflare.com/?to=/:account/pages/new/wrangler-guide"
+            target="_blank"
+            > Wrangler CLI</a
+          >
+          <img src="assets/cloud-upload.svg" />
+          <a
+            href="https://dash.cloudflare.com/?to=/:account/pages/new/upload"
+            target="_blank"
+            > Dashboard</a
+          >
+        </section>
+      </div>
+
+      <section class="learn-more">
+        <a
+          href="https://developers.cloudflare.com/pages/platform/direct-uploads"
+        >
+          <button>Learn more</button>
+        </a>
+      </section>
+      <div class="logo">
+        <a href="https://pages.cloudflare.com/" target="_blank">
+          <img src="assets/cloudflare-pages.svg"
+        /></a>
+      </div>
+    </div>
+    <img id="dice" src="dice1.png" alt="Dice" />
+      <br />
+      <button id="rollButton">Roll</button>
+      <br />
+      <table id="statsTable">
+        <tr>
+          <th>Number</th>
+          <th>Rolls</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td id="rolls1">0</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td id="rolls2">0</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td id="rolls3">0</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td id="rolls4">0</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td id="rolls5">0</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td id="rolls6">0</td>
+        </tr>
+      </table>
+      <br />
+      <button id="resetButton">Reset Statistics</button>
+      <script>
+        // Get references to the dice image, roll button, and stats table
+        const dice = document.getElementById("dice");
+        const rollButton = document.getElementById("rollButton");
+        const statsTable = document.getElementById("statsTable");
+        const resetButton = document.getElementById("resetButton");
+  
+        // Add event listeners to the roll and reset buttons
+        rollButton.addEventListener("click", rollDice);
+        resetButton.addEventListener("click", resetStats);
+  
+        function rollDice() {
+          // Generate a random number using the crypto object
+          const array = new Uint32Array(1);
+          window.crypto.getRandomValues(array);
+          const randomNumber = array[0] % 6 + 1;
+  
+          // Update the dice image and statistics table
+          dice.src = "dice" + randomNumber + ".png";
+          document.getElementById("rolls" + randomNumber).innerHTML++;
+        }
+  
+        function resetStats() {
+          // Reset all the values in the statistics table to 0
+          for (let i = 1; i <= 6; i++) {
+            document.getElementById("rolls" + i).innerHTML = 0;
+          }
+        }
+      </script>
+  </body>
+</html>
