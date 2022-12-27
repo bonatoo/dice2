@@ -1,12 +1,21 @@
 <html>
   <head>
     <title>Dice Roll</title>
+    <style>
+      .dice-roll-text {
+        font-size: 36px;
+      }
+      .cooldown-timer {
+        font-size: 24px;
+      }
+    </style>
   </head>
   <body>
     <img id="dice" src="dice1.png" alt="Dice" />
     <br />
     <button id="rollButton">Roll</button>
     <br />
+    <div id="cooldownTimer" class
     <table id="statsTable">
       <tr>
         <th>Number</th>
@@ -50,13 +59,7 @@
       rollButton.addEventListener("click", rollDice);
       resetButton.addEventListener("click", resetStats);
 
-      let rollButtonDisabled = false;
-
       function rollDice() {
-      if (rollButtonDisabled) {
-       return;
-         }
-
       // Generate a random number using the crypto object
       const array = new Uint32Array(1);
       window.crypto.getRandomValues(array);
@@ -66,32 +69,10 @@
       dice.src = "dice" + randomNumber + ".png";
       document.getElementById("rolls" + randomNumber).innerHTML++;
 
-           // Remove the dice roll text if it exists
-           const diceRollDiv = document.querySelector(".dice-roll-text");
-            if (diceRollDiv) {
-             diceRollDiv.parentNode.removeChild(diceRollDiv);
-           }
-
-           // Add text that displays the number rolled next to the dice image
-            const diceRollText = document.createTextNode("Dice rolled " + randomNumber);
-            diceRollDiv = document.createElement("div");
-            diceRollDiv.classList.add("dice-roll-text");
-            diceRollDiv.appendChild(diceRollText);
-            dice.parentNode.insertBefore(diceRollDiv, dice.nextSibling);
-
-             // Reset the dice roll text after 10 seconds
-            setTimeout(function() {
-            diceRollDiv.parentNode.removeChild(diceRollDiv);
-          }, 10000);
-
-            // Enable the "Roll" button after 5 seconds
-            rollButtonDisabled = true;
-            setTimeout(function() {
-            rollButtonDisabled = false;
-         }, 5000);
+      // Add text that displays the number rolled next to the dice image
+      const diceRollText = document.createTextNode("Dice rolled " + randomNumber);
+      dice.parentNode.insertBefore(diceRollText, dice.nextSibling);
       }
-
-
 
       function resetStats() {
         // Reset all the values in the statistics table to 0
